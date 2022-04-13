@@ -1,16 +1,16 @@
 export class DinCacul{
     constructor(){
         this.mm = 'ipt-mm';
-        this.dd = 'ipt-dd';
-        this.djarin = 45000;
-        this.dollar = undefined;
+        this.dj = 'ipt-dd';
+        this.DJR = 45000;
+        this.DOLLAR = undefined;
         this.$sel_mm = document.getElementById('sel-mm');
         this.error = '숫자를 제대로 입력해주세요';
     }
 
     async init(){
         //fetch 해서 환율 등록
-        this.dollar = await this.get_exchange_rate();
+        this.DOLLAR = await this.get_exchange_rate();
 
         //ipt에 keyup 이벤트 등록
         const $$ipt = document.querySelectorAll('.ipt');
@@ -23,8 +23,29 @@ export class DinCacul{
     }//add_on_keyup
 
     reset_ipt = (e)=>{
-        const $target = e.target;
-        if($target.value == this.error){$target.value = '';}
+        const $ipt = e.target;
+        const val = $ipt.value; 
+        if(val == this.error){
+            $ipt.value = '';
+            return;
+        }//if
+
+        switch($ipt.id){
+            case this.mm :
+                const last_mm = val.slice(-2);
+                if(last_mm == " 원" || last_mm == "달러"){
+                    const val_dd = Number(val.slice(0, -2).replaceAll(',',''));
+                    $ipt.value = val_dd;
+                }//if
+                break;
+            case this.dj :
+                const last_dj = val.slice(-3);
+                if(last_dj == "딘자린"){
+                    const val_dj = Number(val.slice(0,-4));
+                    $ipt.value = val_dj;
+                }//if
+                break;
+        }//switch
     }//reset_ipt
     
     on_keyup = (e)=>{
@@ -39,16 +60,22 @@ export class DinCacul{
         /* 제대로 된 숫자 일때 */
         switch($ipt.id){
             case this.mm :
-                this.mm_to_dd(val);
+                this.mm_to_dj(val);
                 break;
-            case this.dd :
-                this.dd_to_mm(val);
+            case this.dj :
+                this.dj_to_mm(val);
                 break;
         }//switch
+
+        /* Enter 키일때 */
+        if(e.key=="Enter"){
+            if($ipt.id == this.mm){this.change_won();}
+            if($ipt.id == this.dj){this.change_djarin();}
+        }//if
     }//on_keyup
 
     nan($ipt){
-        this.display_nan_message($ipt.id == this.dd ? this.mm : this.dd);
+        this.display_nan_message($ipt.id == this.dj ? this.mm : this.dj);
     }//nan
 
     display_nan_message(name){
@@ -56,26 +83,39 @@ export class DinCacul{
         $ipt.value = this.error;
     }//display_nan_message
 
-    mm_to_dd(val){
-        const $ipt = document.getElementById(this.dd);
+    mm_to_dj(val){
+        const $ipt = document.getElementById(this.dj);
         const is_dollar = this.$sel_mm.value == 'dollar';
-        const money = is_dollar ? val * this.dollar : val;
-        const q = (money / this.djarin).toFixed(2);
+        const money = is_dollar ? val * this.DOLLAR : val;
+        const q = (money / this.DJR).toFixed(2);
         const last = q.slice(-2);
         const final = last == "00" ? parseInt(q) : q;
         $ipt.value = `${final} 딘자린`;
-    }//mm_to_dd
+    }//mm_to_dj
 
-    dd_to_mm(val){
+    change_won(){
+        const $ipt = document.getElementById(this.mm);
+        const val = Number($ipt.value).toLocaleString();
+        const mName = this.money_name();
+        $ipt.value = val + ' ' + mName;
+    }//change_won
+
+    change_djarin(){
+        const $ipt = document.getElementById(this.dj);
+        const val = Number($ipt.value).toLocaleString();
+        $ipt.value = `${val} 딘자린`;
+    }//change_djarin
+
+    dj_to_mm(val){
         const $ipt = document.getElementById(this.mm);
         const money = this.money_rate(val);
         const mName = this.money_name();
-        $ipt.value = `${money} ${mName}`;
-    }//mm_to_dd
+        $ipt.value = `${money.toLocaleString()} ${mName}`;
+    }//dj_to_mm
 
     money_rate(val){
-        const won = val * this.djarin;
-        const result = this.$sel_mm.value == 'dollar' ? (won / this.dollar).toFixed(2) : won;
+        const won = val * this.DJR;
+        const result = this.$sel_mm.value == 'dollar' ? (won / this.DOLLAR).toFixed(2) : won;
         return result
     }//money_rate
 
