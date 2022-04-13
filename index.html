@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Din Djarin Caculator</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+    <script src="./src/main.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <img src="./img/mando.svg" style="width:130px;"/>
+        <h1>Din Djarin 계산기</h1>
+        <h3>염가 세일된 <strong>사만오천원</strong> 기준입니다.</h3>
+        <div>
+            <p><a href="https://m.blog.naver.com/boba0210/222020856180?referrerCode=1" target="_blank">봅뻿님의 블로그 포스팅</a>을 참고해주세요</p>
+            <p>그로구 애비의 인권을 위해 소수점 2번째 자리까지만 표시합니다.</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="sect_cacul">
+            <!-- 단위 - 통상화폐 -->
+            <article id="cacul-mm" class="cacul">
+                <!-- 단위선택 -->
+                <label class="lbl-sel">
+                    <span>단위</span>
+                    <select id="sel-mm">
+                        <option value="dollar">달러</option>
+                        <option value="krw" selected>원(KRW)</option>
+                    </select>
+                </label>
+                <!-- 입력 및 출력 -->
+                <input type="text" value="45000" placeholder="45000" class="ipt" id="ipt-mm" title="통상화폐 숫자 입력"/>
+            </article><!-- cacul-mm -->
+
+            <!-- 단위 - 딘자린 -->
+            <article id="cacul-dd" class="cacul">
+                <!-- 단위선택 -->
+                <label class="lbl-sel">
+                    <span>단위</span>
+                    <select id="sel-dd">
+                        <option value="dd" selected>딘자린</option>
+                    </select>
+                </label>
+                <!-- 입력 및 출력 -->
+                <input type="text" value="1 딘자린" placeholder="1" class="ipt" id="ipt-dd" title="통상화폐 숫자 입력"/>
+            </article><!-- cacul-dd -->
+        </section><!-- sect_cacul -->
+    </main>
+
+    <footer>
+        오류 문의는... 알아서 찾아와주세용 ^_^
+    </footer>
+</body>
+</html>

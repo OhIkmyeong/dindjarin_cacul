@@ -1,0 +1,50 @@
+@charset "utf-8";
+#sect_cacul{
+    display:flex; flex-flow:row wrap;
+    justify-content:center;
+    gap:40px;
+    position:relative;
+    width:calc(100% - 2rem); max-width:1000px;
+    margin:0 auto;}
+
+.cacul{
+    position:relative; overflow:hidden;
+    width:clamp(calc(50% - 20px), 400px , 100%);
+    background:rgba(255,255,255,.3);
+    border-radius:.5rem;
+    box-shadow: 2px 2px 0 2px rgba(0,0,0,.05);}
+
+.lbl-sel{
+    display:block;
+    position:relative;
+    width:100%;
+    padding:.7rem 1.5rem;
+    border-bottom:1px solid #d2d2d2;
+    font-size:0.85rem; font-weight:500;}
+
+    .lbl-sel span{margin-right:.5em;}
+
+    .lbl-sel select{
+        appearance:none;
+        padding:.7em 2.5em .7em 1em;
+        background:transparent url(./../img/arrow.svg) no-repeat 90% center / auto 40%;
+        border:2px solid rgb(49, 125, 166);border-radius:3rem;
+        font-weight:600; color:rgb(47, 89, 161);}
+
+        .lbl-sel select option{font-size:1rem;font-weight:600;}
+
+
+.ipt{
+    display:block;
+    width:100%;
+    padding:1em;
+    border:none;
+    font-size:1.5rem; font-weight:600;}
+
+    .ipt::placeholder{color:rgba(0,0,0,.2);}
+
+#ipt-dd{color:royalblue;}
+
+    .ipt:focus{
+        outline:none;
+        background:rgba(214, 248, 248,.5); color:dodgerblue;}
