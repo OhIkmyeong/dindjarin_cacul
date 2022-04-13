@@ -41,7 +41,7 @@ export class DinCacul{
             case this.dj :
                 const last_dj = val.slice(-3);
                 if(last_dj == "딘자린"){
-                    console.log(val.slice(0,-3));
+                    // console.log(val.slice(0,-3));
                     const val_dj = Number(val.slice(0,-3));
                     $ipt.value = val_dj;
                 }//if
